@@ -4,6 +4,8 @@ import { useState } from "react";
 
 export default function HomePage() {
   const [zip, setZip] = useState("");
+  const [error, setError] = useState("");
+
   return (
     <main className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header */}
@@ -37,18 +39,42 @@ export default function HomePage() {
               <input
   type="text"
   value={zip}
-  onChange={(e) => setZip(e.target.value)}
+  onChange={(e) => {
+    const value = e.target.value;
+
+    // Allow only numbers
+    if (!/^\d*$/.test(value)) return;
+
+    setZip(value);
+
+    // Clear error while typing
+    if (error) setError("");
+  }}
   placeholder="Enter ZIP code"
   className="w-full border border-gray-300 rounded-md px-4 py-3 text-lg"
   maxLength={5}
 />
 
-            <a
-  href={`/results?zip=${zip}`}
-  className="bg-blue-600 text-white px-6 py-3 rounded-md font-medium hover:bg-blue-700 transition text-center block"
+
+   <button
+  onClick={() => {
+    if (zip.length !== 5) {
+      setError("Please enter a valid 5-digit ZIP code.");
+      return;
+    }
+
+    window.location.href = `/results?zip=${zip}`;
+  }}
+  className="bg-blue-600 text-white px-6 py-3 rounded-md font-medium hover:bg-blue-700 transition w-full"
 >
   Search
-</a>
+</button>
+
+{error && (
+  <p className="text-sm text-red-600 mt-2">
+    {error}
+  </p>
+)}
 
  
 
