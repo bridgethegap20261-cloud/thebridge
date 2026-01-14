@@ -2,7 +2,7 @@ type Resource = {
   id: number;
   name: string;
   services: string;
-  zipCodes: string[];
+  coverageZips: string[];
   telehealth: boolean;
 };
 
