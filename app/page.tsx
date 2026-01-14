@@ -1,4 +1,9 @@
+"use client";
+
+import { useState } from "react";
+
 export default function HomePage() {
+  const [zip, setZip] = useState("");
   return (
     <main className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header */}
@@ -30,16 +35,23 @@ export default function HomePage() {
             {/* Search Box */}
             <div className="flex flex-col sm:flex-row gap-4 max-w-md">
               <input
-                type="text"
-                placeholder="Enter ZIP code"
-                className="flex-1 rounded-md border border-gray-300 px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-600"
-              />
+  type="text"
+  value={zip}
+  onChange={(e) => setZip(e.target.value)}
+  placeholder="Enter ZIP code"
+  className="w-full border border-gray-300 rounded-md px-4 py-3 text-lg"
+  maxLength={5}
+/>
 
-              <button
-                className="bg-blue-600 text-white px-6 py-3 rounded-md font-medium hover:bg-blue-700 transition"
-              >
-                Search
-              </button>
+            <a
+  href={`/results?zip=${zip}`}
+  className="bg-blue-600 text-white px-6 py-3 rounded-md font-medium hover:bg-blue-700 transition text-center block"
+>
+  Search
+</a>
+
+ 
+
             </div>
 
             <p className="text-sm text-gray-500 mt-4">
